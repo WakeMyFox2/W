@@ -1,0 +1,205 @@
+Question 1: 2's Complement Overflow Detection
+
+In 2's complement representation, overflow happens when adding two numbers produces a result that falls outside the range that can be represented with the fixed number of bits available. This creates a situation where numbers out of range end up with the opposite sign from what they should have.
+
+The detection method is straightforward: if both inputs to an addition have the same sign but the output has a different sign, an overflow has occurred. For example, with 8-bit numbers, adding two positive numbers like 64 (0100 0000) and 65 (0100 0001) might produce 1000 0001, which appears as -126 in 2's complement - clearly wrong since two positive inputs shouldn't produce a negative result.
+
+Example of overflow:
+  0100 0000 =  64 (positive)
++ 0100 0001 =  65 (positive)
+-----------------
+  1000 0001 = -126 (negative - OVERFLOW!)
+
+When this happens, it indicates the calculation exceeded the representable range, and the result is incorrect.
+
+================================================================================
+
+Question 2: High-Level to Assembly Translation
+
+High-level loop structures and conditional statements translate into assembly language using labels and branch instructions. The process involves converting structured control flow into simple jumps and conditional branches.
+
+The translation works by:
+1. Using labels to mark target locations in the code
+2. Converting conditions into comparison operations followed by branch instructions
+3. Implementing loops as conditional jumps back to earlier labels
+
+Assembly Code Example (LMC):
+
+Problem: Add 1 to A if A = B, subtract 1 from A if A ≠ B
+
+     LDA  A        ; Load A into accumulator
+     SUB  B        ; Subtract B from A
+     BRZ  equal    ; If result is zero (A = B), branch to equal
+     LDA  A        ; A ≠ B: load A again
+     SUB  one      ; Subtract 1 from A
+     STO  A        ; Store result back to A
+     BRZ  done     ; Branch to done
+equal: LDA  A      ; A = B: load A
+     ADD  one      ; Add 1 to A
+     STO  A        ; Store result back to A
+done: HLT          ; Halt
+
+one  DAT  1        ; Data: constant 1
+A    DAT  0        ; Data: variable A
+B    DAT  0        ; Data: variable B
+
+This demonstrates how if-else logic translates into labels (equal, done) and branch instructions (BRZ) that direct program flow based on conditions.
+
+================================================================================
+
+Question 3: LMC Subtraction with Fetch-Execute Cycle
+
+The Little Man Computer can subtract two numbers using its SUB instruction. Here's how it works through the complete fetch-execute cycle:
+
+Assembly Code for Subtraction:
+     INP           ; Input first number
+     STO  first    ; Store it in mailbox 'first'
+     INP           ; Input second number
+     STO  second   ; Store it in mailbox 'second'
+     LDA  first    ; Load first number into calculator
+     SUB  second   ; Subtract second number
+     OUT           ; Output the result
+     HLT           ; Stop
+first DAT  0       ; Storage location for first number
+second DAT  0      ; Storage location for second number
+
+Fetch-Execute Cycle Explanation:
+
+FETCH Phase:
+1. The Little Man reads the address from the location counter
+2. He walks to the mailbox corresponding to that address
+3. He reads the instruction slip from that mailbox (putting it back for later if needed)
+
+EXECUTE Phase (using SUB instruction as example):
+1. The Little Man goes to the mailbox address specified in the instruction
+2. He reads the number stored in that mailbox (remembering to replace it)
+3. He walks to the calculator and performs the subtraction operation
+4. He clicks the location counter to increment it, preparing for the next instruction
+
+This cycle repeats for each instruction: fetch the instruction from memory, then execute it. The SUB instruction specifically takes the value currently in the calculator, subtracts the value from the specified memory location, and leaves the result in the calculator.
+
+================================================================================
+
+Question 4: Bus Architecture Communication and Conflicts
+
+The bus architecture helps different computer components communicate efficiently by providing a shared physical connection for transferring data between locations. A bus consists of a group of electrical conductors (wires printed on a circuit board) that carry four kinds of signals: data, addressing, control signals, and sometimes power.
+
+How it enables efficient communication:
+- Provides a common pathway for all components to exchange information
+- Carries data signals along with addressing information that specifies where data should go
+- Uses control signals to coordinate and manage data transfers
+- Multiple components can connect to the same bus infrastructure
+
+Problems with multiple devices using the bus simultaneously:
+When multiple devices try to use the bus at the same time, conflicts occur because the bus is a shared resource. This is particularly problematic with multipoint buses (also called broadcast or multidrop buses) where multiple devices connect to the same conductors.
+
+The main issues are:
+- Signal collision: If two devices transmit simultaneously, their signals interfere with each other
+- Bus contention: Multiple devices competing for bus access creates delays
+- Data corruption: Overlapping transmissions can corrupt the information being sent
+- Throughput reduction: The bus must handle conflicts, reducing effective data transfer rates
+
+These problems require control mechanisms to manage which device can use the bus at any given time, preventing simultaneous access that would cause communication failures.
+
+================================================================================
+
+Question 5: Brainstorming
+
+a. What brainstorming means:
+
+Brainstorming is a technique for identifying numerous solutions to a given problem in a short time frame. It's a method used to generate a large volume of ideas quickly through group collaboration.
+
+b. Rules of brainstorming:
+
+1. Defer judgment – Separate idea generation from idea selection. Don't evaluate ideas during the brainstorming session.
+
+2. Encourage wild ideas – Breakout ideas are right next to the absurd ones. Creative, unusual suggestions should be welcomed.
+
+3. Build on the ideas of others – Listen actively and add to the flow of ideas. Use others' suggestions as springboards.
+
+4. Go for volume – The best way to have a good idea is to have lots of ideas. Quantity matters during brainstorming.
+
+5. One conversation at a time – Maintain momentum as a group. Save side conversations for later to keep focus.
+
+6. Headline – Capture the essence quickly and move on. Don't stall the group by going into long-winded explanations.
+
+c. Real-world company examples:
+
+1. Defer judgment: A marketing team at a company brainstorms new product names without criticizing any suggestions initially. This prevents team members from holding back creative ideas because they fear immediate criticism. Later, after generating many options, they evaluate and select the best ones.
+
+2. Encourage wild ideas: A software development team suggests seemingly impossible features like "AI that reads users' minds." While unrealistic, this sparks discussion about better predictive interfaces and ultimately leads to a practical user behavior analysis feature.
+
+3. Build on ideas of others: During a manufacturing efficiency meeting, one employee suggests automating a process. Another builds on this by suggesting which specific equipment could work, and a third adds ideas about how to train staff on the new system. The collaborative building creates a comprehensive solution.
+
+4. Go for volume: A customer service team generates 50 ideas to improve response times in 15 minutes. While many won't work, having numerous options increases the likelihood of finding several excellent solutions that can be combined or refined.
+
+5. One conversation at a time: In a product design session, when two team members start a side discussion about implementation details, the facilitator redirects everyone to stay focused on idea generation. This keeps the entire group engaged and maintains creative momentum.
+
+6. Headline: Instead of explaining a complex system redesign in detail, a team member says "modular checkout system" and quickly moves on. This keeps the session flowing while capturing enough information to explore the idea later.
+
+================================================================================
+
+Question 6: Big Data Source and Application
+
+1. Potential Big Data source:
+
+Streaming data from wearable devices represents a significant Big Data source in healthcare. These connected devices include fitness trackers, smart watches, heart monitors, and glucose sensors that continuously flow into IT systems. Medical devices can track heart performance, monitor glucose and other body systems, and track activity and sleep levels, generating massive amounts of health data.
+
+2. Three Vs characteristic - Velocity:
+
+This data source strongly demonstrates Velocity, which refers to the unprecedented speed at which data streams into systems. With the growth of the Internet of Things, wearable medical devices and fitness trackers send health data continuously in real-time. These data streams must be handled in a timely manner - for example, a heart monitor needs to detect abnormalities immediately to alert caregivers in an emergency. RFID tags, sensors, and smart meters are driving the need to deal with these torrents of data in near-real time, making velocity a critical characteristic of this Big Data source.
+
+3. Applications and use cases creating value:
+
+Healthcare monitoring and diagnosis: Connected medical devices that continuously send real-time health data to doctors enable proactive diagnosis. Healthcare professionals can use this data to inform diagnosis and ensure patients follow doctors' orders. For instance, continuous glucose monitoring helps diabetic patients and their doctors make immediate treatment adjustments rather than waiting for periodic checkups.
+
+Preventive care: By analyzing patterns in the continuous stream of health data, doctors can identify potential health issues before they become serious. A heart monitor detecting irregular patterns could trigger early intervention, preventing heart attacks or strokes.
+
+Emergency response: IoMT (Internet of Medical Things) devices can automatically inform caregivers in the event of an emergency, such as a fall, abnormal heart rhythm, or dangerous glucose levels, enabling faster response times that could save lives.
+
+These applications create value by improving patient outcomes, reducing emergency hospitalizations through early intervention, and enabling more personalized treatment plans based on continuous real-world data rather than occasional office visits.
+
+================================================================================
+
+Question 7: IoT in Healthcare with 5G
+
+1. IoT subcategory and benefits to healthcare:
+
+The scenario describes the Internet of Medical Things (IoMT) application area. This IoT subcategory focuses on making people healthier by using connected medical devices to monitor patients and provide healthcare data.
+
+Benefits to healthcare operations:
+- Helps monitor patients continuously with real-time health data
+- Informs caregivers immediately in the event of an emergency
+- Provides healthcare professionals with data that could inform diagnosis and ensure patients follow doctors' orders
+- Enables tracking of vital signs like heart performance, glucose levels, and other body systems
+- Supports proactive diagnosis rather than reactive treatment by detecting issues early
+
+2. How 5G enhances IoT system performance:
+
+5G enhances the performance of healthcare IoT systems compared to traditional networks in several ways:
+
+Connecting more devices: 5G networking protocols can cope with connecting approximately 1 million devices within a single square kilometer geographical area. This high-density connectivity is essential for hospitals with numerous medical devices and sensors that need simultaneous network access.
+
+Faster data handling: IoT devices create masses of data, which can slow processing and decision-making on traditional networks. 5G enables much faster wireless broadband speeds, ensuring instant alerts and reliable communication for critical medical situations.
+
+Reduced latency through edge computing: 5G enables edge computing to handle critical medical data much more quickly by providing less network traffic congestion and processing closer to the source of the data. This is crucial for real-time health monitoring where delays could be life-threatening.
+
+Improved reliability: 5G brings much faster and more stable wireless networking compared to traditional networks, ensuring that vital health data transmission doesn't experience interruptions or delays that could compromise patient safety.
+
+Real-time communication: The combination of 5G's speed and capacity allows connected medical devices to send continuous real-time health data to doctors for immediate analysis and response, rather than experiencing the delays common with traditional network technology.
+
+================================================================================
+
+Question 8: Two Types of Encryption
+
+The two types of encryption are:
+
+1. Symmetric Encryption:
+A two-way encryption scheme in which both encryption and decryption are performed using the same key, also called shared key encryption. The same key is used by both parties - one to encrypt the original data into ciphertext and the other to decrypt the ciphertext back to readable plaintext. Both sender and receiver must have access to the same secret key.
+
+2. Asymmetric Encryption:
+A two-way encryption scheme that uses paired public and private keys. This method involves two different but mathematically related keys:
+- Public key: The component that can be accessed by anyone and is used to encrypt data
+- Private key: The component that is kept secret by one party and is used to decrypt data
+
+In asymmetric encryption, the public key encrypts information while the private key decrypts it. This allows secure communication without needing to share a secret key in advance, as anyone can use the recipient's public key to send encrypted messages that only the recipient's private key can decrypt.
