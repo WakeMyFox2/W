@@ -1,0 +1,60 @@
+1-In the context of 2’s complement representation, explain how overflow can occur
+during                                            binary addition, and describe a method to detect 
+such an overflow
+condition?
+
+2-Explain how a high-level loop structure and conditional statements (if, while,
+for)                                           are translated into assembly language and then into 
+machine code, using
+the concept of labels and branch instructions.
+
+Write the assembly code for a simple program that adds 1 to A if A = B, and
+subtracts 1 from A if A ≠ B?
+
+3-Based on the idea of little man computer (LMC). Explain how it can subtract two
+numbers? Clarify your answer by explaining the full process of fetch and execute
+cycle.
+
+Hint: write assembly code for subtraction
+
+4-How does the bus architecture in computer organization help different
+components communicate efficiently, and what problems might occur if multiple
+devices try to use the bus at the same time?
+
+
+5-Brainstorming plays a significant role in technology innovation.
+
+a. What does brainstorming mean?
+
+b.  List and briefly explain each rule of brainstorming.
+
+c. In your own words, provide a real-world example to explain how each rule helps a team
+working within a company.
+
+6-Big Data is generated from a variety of digital sources.
+
+1. Identify one potential source of Big Data that you have encountered in your personal life or in 
+the
+industry you work in (e.g., manufacturing, real estate, marketing, or financial services), which
+has not yet been fully utilized.
+
+2. Explain at least one of the three Vs of Big Data (Volume, Velocity, or Variety) that 
+characterizes
+this data source.
+
+3. Discuss how it could be used, and suggest possible applications or use cases that would create
+value.
+
+7-Scenario: A hospital installs connected medical devices such as heart monitors, glucose sensors,
+and remote patient tracking systems that continuously send real-time health data to doctors for
+proactive diagnosis. To ensure instant alerts and reliable communication, the hospital plans to
+upgrade its network to 5G technology.
+
+1. Identify the IoT subcategory (application area) used in this scenario and explain how it is
+beneficial to healthcare operations. (1 point)
+
+2. Describe how 5G enhances the performance of such IoT systems compared to traditional
+networks.                                                 (1 point)
+
+8-What are the two types of encryptions? Define each one.
+
